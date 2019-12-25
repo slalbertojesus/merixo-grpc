@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+service ChatAdmin {
+//Inicia un chat entre dos clientes y permite mandar menasjes
+rpc IniciaChat(Usuarios) returns (stream Mensaje);
+
+//Se agrega al servidor
+rpc Subscribirse(CrearUsuarioRequest) returns (Respuesta);
+
+// Elimina mensaje
+rpc EliminaMensaje(Mensaje) returns (Respuesta);
+}
+
+message Usuarios {
+repeated Usuario usuario = 1;
+}
+
+message Usuario {
+  string id = 1;
+  string username = 2;
+  bool estado = 3;
+}
+
+message CrearUsuarioResult{ 
+  Usuario usuario = 1; 
+}
+
+message CrearUsuarioRequest{ 
+  Usuario usuario = 1; 
+}
+
+message Respuesta{
+  string respuesta = 1;
+}
+
+message Mensaje{
+  string id = 1;
+  string content = 2;
+}
